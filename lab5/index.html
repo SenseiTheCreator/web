@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LR5</title>
-    <link rel="stylesheet" href="assets/styles/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LR5</title>
+  <link rel="stylesheet" href="assets/styles/style.css">
 </head>
+
 <body>
-    <h1>Task 1</h1>
-    <div class="t1-container">
-      <div class="container-far">
-        <label for="fahrenheit">Температура за Фаренгейтом:</label>
-        <input id="Fahrenheit" type="text" placeholder="" />
-      </div>
-      <div class="container-cel">
-        <label for="celsius">Температура за Цельсієм:</label>
-        <input id="Celsius" type="text" placeholder="" />
-      </div>
+  <h1>Task 1</h1>
+  <div class="t1-container">
+    <div class="container-far">
+      <label for="fahrenheit">Temperature in Fahrenheit:</label>
+      <input id="fahrenheit" type="text" placeholder="" />
     </div>
+    <div class="container-cel">
+      <label for="celsius">Temperature in Celsius:</label>
+      <input id="celsius" type="text" placeholder="" />
+    </div>
+  </div>
+
+  <h1>Task 2</h1>
+  <div class="t2-container">
+    <div id="textBox">Total score 0% (0 correct answers out of 0)</div>
+    <div>
+      <button id="nextTaskBtn">Next Task</button>
+    </div>
+    <div class="question-container">
+      <label for="question" id="question">0 x 0 =</label>
+      <input type="text" name="question" id="answer">
+      <button id="checkBtn">Check</button>
+    </div>
+    <p id="resultTextBox"></p>
+  </div>
 
 
-
-    <script src="assets/scripts/script.js"></script>
+  <script src="assets/scripts/script.js"></script>
 </body>
+
 </html>

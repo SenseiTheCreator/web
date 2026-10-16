@@ -5,3 +5,13 @@ label {
     display: inline-block;
     width: 220px;
 }
+
+
+.t2-container > div {
+    margin-top: 10px;
+}
+
+
+.question-container button {
+  margin-left: 14px;
+}
