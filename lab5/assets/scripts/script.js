@@ -84,3 +84,105 @@ checkBtn.addEventListener("click", checkAnswer);
 
 generateTask();
 updateScore();
+
+
+// task3
+
+const scoreBox3 = document.getElementById("score3");
+const nextBtn3 = document.getElementById("nextBtn3");
+const questionBox3 = document.getElementById("question3");
+const optionsBox3 = document.getElementById("options3");
+const resultBox3 = document.getElementById("result3");
+
+const MAX_ATTEMPTS_3 = 10;
+
+let correctCount3 = 0;
+let totalCount3 = 0;
+let answered3 = false;
+let correctAnswer3 = 0;
+
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateOptions3(correct) {
+    const options = [correct];
+    while (options.length < 4) {
+        const x = randomInt(1, 100);
+        if (!options.includes(x)) options.push(x);
+    }
+    for (let i = options.length - 1; i > 0; i--) {
+        const j = randomInt(0, i);
+        [options[i], options[j]] = [options[j], options[i]];
+    }
+    return options;
+}
+
+function renderOptions3(options) {
+    optionsBox3.textContent = "";
+
+    options.forEach((value) => {
+        const label = document.createElement("label");
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "answer3";
+        radio.value = value;
+        radio.addEventListener("change", checkAnswer3);
+
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(" " + value));
+        optionsBox3.appendChild(label);
+    });
+}
+
+function generateTask3() {
+    if (totalCount3 >= MAX_ATTEMPTS_3) return;
+
+    const num1 = randomInt(1, 10);
+    const num2 = randomInt(1, 10);
+    correctAnswer3 = num1 * num2;
+
+    questionBox3.textContent = `${num1} × ${num2} =`;
+    renderOptions3(generateOptions3(correctAnswer3));
+    resultBox3.textContent = "";
+    answered3 = false;
+}
+
+function updateScore3() {
+    const percent = totalCount3 === 0 ? 0 : Math.round(correctCount3 / totalCount3 * 100);
+    scoreBox3.textContent =
+        `Total score ${percent}% (${correctCount3} correct answers out of ${totalCount3})`;
+}
+
+function finishGame3() {
+    nextBtn3.disabled = true;
+    resultBox3.textContent += ` Game over: you answered ${MAX_ATTEMPTS_3} questions.`;
+}
+
+function checkAnswer3(event) {
+    if (answered3) return;
+    answered3 = true;
+
+    const userAnswer = parseInt(event.target.value, 10);
+    totalCount3++;
+
+    if (userAnswer === correctAnswer3) {
+        correctCount3++;
+        resultBox3.textContent = "Correct!";
+    } else {
+        resultBox3.textContent = `Error, correct answer is «${correctAnswer3}»`;
+    }
+
+    optionsBox3.querySelectorAll("input").forEach((r) => (r.disabled = true));
+
+    updateScore3();
+
+    if (totalCount3 >= MAX_ATTEMPTS_3) {
+        finishGame3();
+    }
+}
+
+nextBtn3.addEventListener("click", generateTask3);
+
+generateTask3();
+updateScore3();
