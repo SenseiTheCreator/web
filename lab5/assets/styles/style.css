@@ -1,14 +1,15 @@
 .container-cel {
-    margin-top: 10px;
+  margin-top: 10px;
 }
+
 label {
-    display: inline-block;
-    width: 220px;
+  display: inline-block;
+  width: 220px;
 }
 
 
-.t2-container > div {
-    margin-top: 10px;
+.t2-container>div {
+  margin-top: 10px;
 }
 
 
@@ -19,4 +20,99 @@ label {
 #options3 label {
   display: block;
   margin-bottom: 2px;
+}
+
+.rotator {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  width: 640px;
+  max-width: 100%;
+  border: 1px solid #ddd;
+  font-family: Verdana, Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+.rotator-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.rotator-link {
+  color: #5b3fb5;
+  cursor: pointer;
+}
+
+.rotator-center {
+  display: grid;
+  grid-template-rows: auto 360px auto;
+}
+
+.rotator-counter {
+  text-align: center;
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+}
+
+.rotator-image-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 360px;
+  overflow: hidden;
+}
+
+.rotator-image-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.rotator-caption {
+  text-align: center;
+  padding: 6px;
+  border-top: 1px solid #ddd;
+  min-height: 40px;
+}
+
+.rotator-title {
+  font-weight: bold;
+}
+
+.task5_conteiner {
+  width: 100px;
+}
+
+#captcha {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px;
+  border: 2px solid #ccc;
+  background: #fff;
+}
+
+.captcha-digit {
+  display: grid;
+  grid-template-columns: repeat(3, 5px);
+  grid-auto-rows: 5px;
+}
+
+.captcha-digit span.on {
+  background: red;
+}
+
+#input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+}
+
+#statusMsg {
+  margin: 4px 0 0;
+  font-size: 18px;
 }
