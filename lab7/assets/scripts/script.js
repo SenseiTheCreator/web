@@ -1,15 +1,16 @@
-let watchId = null;
-
-//ind task 
-let map = null;
-let marker = null;
-
-
-document.addEventListener('DOMContentLoaded', getMyLocation)
 const ourCoords = {
     latitude: 48.94321,
     longitude: 24.73380
 };
+
+let watchId = null;
+//ind task 
+let map = null;
+let marker = null;
+let destMarker = null;
+let destCoords = null;
+
+document.addEventListener('DOMContentLoaded', getMyLocation)
 
 function getMyLocation(){
     if (navigator.geolocation){
@@ -33,7 +34,8 @@ function displayLocation (position) {
     let distance = document.getElementById("distance")
     distance.innerHTML = `You are ${km} km from the College`
 
-    showOnMap(latitude, longitude);
+    showOnMap(latitude, longitude, position.timestamp);
+    
 }
 
 function displayError(error) {
@@ -81,16 +83,52 @@ function clearWatch() {
 }
 
 //ind task
-function showOnMap(latitude, longitude){
+function showOnMap(latitude, longitude, timestamp) {
     if (!map) {
-        map = L.map('map').setView([latitude, longitude], 15);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        map = L.map("map").setView([latitude, longitude], 15);
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
             maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
-        marker = L.marker([latitude, longitude]).addTo(map);
-    } else {
-        marker.setLatLng([latitude, longitude]);
-        map.setView([latitude, longitude]);
+
+        L.marker([ourCoords.latitude, ourCoords.longitude])
+            .addTo(map)
+            .bindPopup(coordsPopup("College", ourCoords.latitude, ourCoords.longitude));
     }
+
+    // new pin if user change place
+    const time = new Date(timestamp).toLocaleTimeString("uk-UA");
+    L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup(coordsPopup("Ви були тут", latitude, longitude, `<br>Час: ${time}`));
+
+    map.setView([latitude, longitude]);
 }
+
+function coordsPopup(title, lat, lng, extra = "") {
+    return `<b>${title}</b><br>
+          Широта: ${lat.toFixed(5)}<br>
+          Довгота: ${lng.toFixed(5)}${extra}`;
+}
+
+document.getElementById("destForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let lat = parseFloat(document.getElementById("destLat").value);
+    let lng = parseFloat(document.getElementById("destLng").value);
+   
+    if (!map) {
+        alert("Карта ще завантажується, зачекайте");
+        return;
+    }
+
+    if (destMarker) {// delete old pin(if it was be)
+        map.removeLayer(destMarker);
+    }
+
+    destMarker = L.marker([lat, lng]).addTo(map); // new pin with message
+    destMarker.bindPopup(coordsPopup("Пункт призначення", lat, lng));
+
+    map.flyTo([lat, lng], 15);
+});
