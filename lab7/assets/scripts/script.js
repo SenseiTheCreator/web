@@ -1,5 +1,10 @@
 let watchId = null;
 
+//ind task 
+let map = null;
+let marker = null;
+
+
 document.addEventListener('DOMContentLoaded', getMyLocation)
 const ourCoords = {
     latitude: 48.94321,
@@ -27,6 +32,8 @@ function displayLocation (position) {
     let km = computeDistance(position.coords, ourCoords)
     let distance = document.getElementById("distance")
     distance.innerHTML = `You are ${km} km from the College`
+
+    showOnMap(latitude, longitude);
 }
 
 function displayError(error) {
@@ -36,7 +43,7 @@ function displayError(error) {
         2: "Position is not available",
         3: "Request timed out"
     };
-    const errorMessage = errorTypes[error.code];
+    let errorMessage = errorTypes[error.code];
     if (error.code == 0 || error.code == 2) {
         errorMessage = errorMessage + " " + error.message;
     }
@@ -70,5 +77,20 @@ function clearWatch() {
     if (watchId) {
         navigator.geolocation.clearWatch(watchId);
         watchId = null;
+    }
+}
+
+//ind task
+function showOnMap(latitude, longitude){
+    if (!map) {
+        map = L.map('map').setView([latitude, longitude], 15);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        marker = L.marker([latitude, longitude]).addTo(map);
+    } else {
+        marker.setLatLng([latitude, longitude]);
+        map.setView([latitude, longitude]);
     }
 }
