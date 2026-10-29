@@ -1,16 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LR5</title>
+  <title>CSS Generator</title>
   <link rel="stylesheet" href="assets/styles/style.css">
+  <script src="assets/scripts/script.js" defer></script>
 </head>
 
+<body>
 
+  <main class="generator">
+    <h1>CSS Generator</h1>
+    <div class="tabs" id="tabs">
+      <button class="tab active" type="button" data-tab="radius">
+        Border Radius
+      </button>
+      <button class="tab" type="button" data-tab="property-2">
+        Property 2
+      </button>
+      <button class="tab" type="button" data-tab="property-3">
+        Property 3
+      </button>
+    </div>
 
-  <script src="assets/scripts/script.js"></script>
+    <div class="tab-content active" data-content="radius">
+      <h2>Border Radius</h2>
+      <div class="control">
+        <label for="top-left">
+          Top Left
+        </label>
+        <input id="top-left" type="range" min="0" max="100" value="0">
+        <span id="top-left-value">
+          0 px
+        </span>
+      </div>
+
+      <div class="control">
+        <label for="top-right">
+          Top Right
+        </label>
+        <input id="top-right" type="range" min="0" max="100" value="0">
+        <span id="top-right-value">
+          0 px
+        </span>
+      </div>
+
+      <div class="control">
+        <label for="bottom-right">
+          Bottom Right
+        </label>
+        <input id="bottom-right" type="range" min="0" max="100" value="0">
+        <span id="bottom-right-value">
+          0 px
+        </span>
+      </div>
+
+      <div class="control">
+        <label for="bottom-left">
+          Bottom Left
+        </label>
+        <input id="bottom-left" type="range" min="0" max="100" value="0">
+        <span id="bottom-left-value">
+          0 px
+        </span>
+      </div>
+    </div>
+
+    <div class="tab-content" data-content="property-2">
+      <h2>Property 2</h2>
+      <div id="property-2-controls">
+        <div class="control">
+          <label for="gap">
+            Gap
+          </label>
+          <input id="gap" type="range" min="0" max="100" value="20">
+          <span id="gap-value">
+            20 px
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" data-content="property-3">
+      <h2>Property 3</h2>
+      <div id="property-3-controls">
+        <div class="control">
+          <label for="flex-direction">
+            Flex Direction
+          </label>
+          <select id="flex-direction">
+            <option value="row">row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column" selected>column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <section class="preview-section">
+      <h2>Preview</h2>
+      <div id="preview" class="preview">
+
+        <span>Preview</span>
+        <button id="preview-button" type="button">
+          Click
+        </button>
+      </div>
+      <p id="coordinates">
+        X: 0; Y: 0
+      </p>
+    </section>
+
+    <section class="result">
+      <h2>CSS Code</h2>
+      <textarea id="css-code" rows="6" readonly></textarea>
+      <button id="copy-button" type="button">
+        Скопіювати CSS
+      </button>
+      <p id="copy-message"></p>
+    </section>
+
+    <form id="preset-form">
+      <h2>Збереження пресета</h2>
+      <label for="preset-name">
+        Назва пресета
+      </label>
+      <input id="preset-name" type="text">
+      <span id="preset-error"></span>
+      <button type="submit">
+        Зберегти
+      </button>
+    </form>
+  </main>
+
+  <button id="scroll-top" type="button" aria-label="Повернутися вгору">
+    ↑
+  </button>
 </body>
 
 </html>
